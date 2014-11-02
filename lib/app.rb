@@ -37,12 +37,16 @@ class SliceWorksApp < Sinatra::Base
     erb :contact_us
   end
 
-  get '/dine_in' do
+  get '/dine-in' do
     erb :dine_in
   end
 
-  get '/menucatering' do
-    erb :menucatering
+  get '/menu-catering' do
+    erb :menu_catering
+  end
+
+  get '/happy-hour' do
+    erb :happy_hour
   end
 
 end
