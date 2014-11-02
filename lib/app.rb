@@ -1,3 +1,5 @@
+require_relative 'contact'
+require_relative 'contact_store'
 
 class SliceWorksApp < Sinatra::Base
 
@@ -47,6 +49,23 @@ class SliceWorksApp < Sinatra::Base
 
   get '/happy-hour' do
     erb :happy_hour
+  end
+
+  post '/' do
+        binding.pry
+
+    ContactStore.database
+    ContactStore.create(params[:idea])
+    binding.pry
+  end
+
+  delete '/:id' do |id|
+    ContactStore.delete(id.to_i)
+  end
+
+  get '/:id/edit' do |id|
+    idea = ContactStore.find(id.to_i)
+    erb :edit, locals: {idea: idea}
   end
 
 end
