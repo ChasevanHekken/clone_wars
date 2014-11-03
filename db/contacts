@@ -18,3 +18,19 @@ contacts:
   email: goodbye
   subject: nice
   message: good
+- name: zach
+  email: can't
+  subject: dj
+  message: for shit
+- name: first and last name
+  email: this is my email
+  subject: nice subject bro
+  message: "i like your message\r\n"
+- name: ayo
+  email: for
+  subject: yayo
+  message: tony
+- name: in
+  email: out
+  subject: up
+  message: down
