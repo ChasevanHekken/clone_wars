@@ -51,21 +51,19 @@ class SliceWorksApp < Sinatra::Base
     erb :happy_hour
   end
 
-  post '/' do
-        binding.pry
-
-    ContactStore.database
-    ContactStore.create(params[:idea])
-    binding.pry
+  post '/contact-us/' do
+    # ContactStore.database
+    ContactStore.create(params[:contact])
+    redirect '/contact-us'
   end
 
-  delete '/:id' do |id|
-    ContactStore.delete(id.to_i)
-  end
+  # delete '/:id' do |id|
+  #   ContactStore.delete(id.to_i)
+  # end
 
-  get '/:id/edit' do |id|
-    idea = ContactStore.find(id.to_i)
-    erb :edit, locals: {idea: idea}
-  end
+  # get '/:id/edit' do |id|
+  #   contact = ContactStore.find(id.to_i)
+  #   erb :edit, locals: {contact: contact}
+  # end
 
 end
