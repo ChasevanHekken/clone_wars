@@ -1,0 +1,20 @@
+---
+contacts:
+- 
+- 
+- name: hello
+  email: how
+  subject: are
+  message: you
+- name: tree
+  email: hugger
+  subject: good
+  message: bad
+- name: words
+  email: words
+  subject: 'on '
+  message: words
+- name: hello
+  email: goodbye
+  subject: nice
+  message: good
