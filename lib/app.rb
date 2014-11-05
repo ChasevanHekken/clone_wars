@@ -73,7 +73,7 @@ class SliceWorksApp < Sinatra::Base
     }
 
 
-    protected!
+    # protected!
 
     erb :menu_catering
   end
@@ -83,13 +83,22 @@ class SliceWorksApp < Sinatra::Base
   end
 
   post '/contact-us/' do
-    ContactStore.create(params[:contact])
+    p params
+    name = params[:name]
+    email = params[:email]
+    subject = params[:subject]
+    message = params[:message]
+
+    Pony.mail(:to => "zrouthier@gmail.com", :from => "#{email}", :subject => "subject from #{name}", :body => "#{message}")
+
     redirect '/contact-us'
   end
 
   post '/menu_catering' do
     params[:item]
   end
+
+end
   # delete '/:id' do |id|
   #   ContactStore.delete(id.to_i)
   # end
@@ -99,4 +108,3 @@ class SliceWorksApp < Sinatra::Base
   #   erb :edit, locals: {contact: contact}
   # end
 
-end
