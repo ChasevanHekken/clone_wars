@@ -48,7 +48,10 @@ PLATFORMS
 
 DEPENDENCIES
   pg
+<<<<<<< HEAD
+=======
   pony
+>>>>>>> 9670e4ef82ec62d7780e38626048558bc8fcc082
   pry
   rake
   rerun
