@@ -3,6 +3,14 @@ require_relative 'contact_store'
 
 class SliceWorksApp < Sinatra::Base
 
+  configure :developement do
+    DB = Sequel.connect('postgres://localhost/sliceworks')
+  end
+
+  configure :production do
+    DB = Sequel.connect(ENV['DATABASE_URL'])
+  end
+
   get '/' do
     erb :index
   end
@@ -52,7 +60,6 @@ class SliceWorksApp < Sinatra::Base
   end
 
   post '/contact-us/' do
-    # ContactStore.database
     ContactStore.create(params[:contact])
     redirect '/contact-us'
   end
