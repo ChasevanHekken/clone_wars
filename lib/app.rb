@@ -10,6 +10,18 @@ class SliceWorksApp < Sinatra::Base
   configure :production do
     DB = Sequel.connect(ENV['DATABASE_URL'])
   end
+  
+  def protected!
+    return if authorized?
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized\n"
+  end
+
+  def authorized?
+    @auth ||= Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? && @auth.basic? &&
+    @auth.credentials && @auth.credentials == ['admin', 'admin']
+  end
 
   get '/' do
     erb :index
@@ -52,6 +64,17 @@ class SliceWorksApp < Sinatra::Base
   end
 
   get '/menu-catering' do
+    @categories = {
+      pizza: [
+        {name: 'Cheese', full_price: 10, half_price: 5},
+        {name: 'Chicken', ingredients:'chicken and buffalo sauce', full_price: 15, half_price: 9},
+        {name: 'Greek', ingredients:'pesto, basil, feta', full_price: 15, half_price: 9}
+      ]
+    }
+
+
+    protected!
+
     erb :menu_catering
   end
 
@@ -64,6 +87,9 @@ class SliceWorksApp < Sinatra::Base
     redirect '/contact-us'
   end
 
+  post '/menu_catering' do
+    params[:item]
+  end
   # delete '/:id' do |id|
   #   ContactStore.delete(id.to_i)
   # end

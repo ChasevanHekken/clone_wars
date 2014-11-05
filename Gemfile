@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'sinatra', require: 'sinatra/base'
 gem 'rake'
 gem 'pg'
+gem 'sequel'
+gem 'sqlite3'
 
 
 group :test, :development do
