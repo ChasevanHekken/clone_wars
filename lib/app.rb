@@ -1,16 +1,18 @@
 require_relative 'contact'
 require_relative 'contact_store'
+require_relative 'category_store'
+require_relative '../db/models'
 
 class SliceWorksApp < Sinatra::Base
 
   configure :developement do
-    DB = Sequel.connect('postgres://localhost/sliceworks')
+    DB
   end
 
   configure :production do
     DB = Sequel.connect(ENV['DATABASE_URL'])
   end
-  
+
   def protected!
     return if authorized?
     headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
@@ -64,16 +66,23 @@ class SliceWorksApp < Sinatra::Base
   end
 
   get '/menu-catering' do
-    @categories = {
-      pizza: [
-        {name: 'Cheese', full_price: 10, half_price: 5},
-        {name: 'Chicken', ingredients:'chicken and buffalo sauce', full_price: 15, half_price: 9},
-        {name: 'Greek', ingredients:'pesto, basil, feta', full_price: 15, half_price: 9}
-      ]
-    }
+    @categories = CategoryStore.add_catering_items_to_categories
+
+    # @categories.each do |category|
+    #   puts "heres category #{category[:name]}"
+    #
+    #   puts "here are the items: #{DB.from(:catering_items).where(:category_id => category[:id]).to_a}"
+    # end
+    # @categories = {
+    #   pizza: [
+    #     {name: 'Cheese', full_price: 10, half_price: 5},
+    #     {name: 'Chicken', ingredients:'chicken and buffalo sauce', full_price: 15, half_price: 9},
+    #     {name: 'Greek', ingredients:'pesto, basil, feta', full_price: 15, half_price: 9}
+    #   ]
+    # }
 
 
-    protected!
+    # protected!
 
     erb :menu_catering
   end
@@ -90,13 +99,4 @@ class SliceWorksApp < Sinatra::Base
   post '/menu_catering' do
     params[:item]
   end
-  # delete '/:id' do |id|
-  #   ContactStore.delete(id.to_i)
-  # end
-
-  # get '/:id/edit' do |id|
-  #   contact = ContactStore.find(id.to_i)
-  #   erb :edit, locals: {contact: contact}
-  # end
-
 end

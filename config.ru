@@ -5,5 +5,4 @@ Bundler.require
 
 require 'app'
 
-
 run SliceWorksApp

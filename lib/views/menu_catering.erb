@@ -58,27 +58,28 @@
 							½ Tray serves 6-8 people <br />
 							Full Tray serves 10-12 people <br /></p>
 
-							<% @categories.each_pair do |category, items| %>
-								<h1 class="menucategory" ><%= category.capitalize %></h1>
+							<% @categories.each do |category| %>
+								<h1 class="menucategory" ><%= category[:name].capitalize %></h1>
 
-								<div class="menuitems">
-									<div class="leftcolumn" >
-										<div class="menuitem catering-header">
-											<span>Tray</span><span>&frac12; Tray</span>
-										</div>
 
-										<% items.each do |item| %>
-										<div class="menuitem"  style="float:left;">
-											<h4 class="itemtitle">
-												<span><%= item[:name] %>-</span>
-												<!-- <span style="width:15px;">&nbsp;</span> -->
-												<span><%= item[:full_price] %></span>
-												<span class="halfPrice" ><%= item[:half_price] %></span>
-											</h4>
-											<p class="ingredients"><%= item[:ingredients] %></p>
-										</div>
-										<% end %>
-									</div>
+								<% category[:catering_items].each do |item| %>
+									<p>
+										<%= item[:title] %>
+									</p>
+									<p>
+										<%= item[:half_price] %>
+									</p>
+									<p>
+										<%= item[:full_price] %>
+									</p>
+									<p>
+										<%= item[:description] %>
+									</p>
+								<% end %>
+
+
+
+
 							<% end %>
 
 							<h1 class="menucategory" >Deli</h1>
