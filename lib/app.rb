@@ -68,20 +68,6 @@ class SliceWorksApp < Sinatra::Base
   get '/menu-catering' do
     @categories = CategoryStore.add_catering_items_to_categories
 
-    # @categories.each do |category|
-    #   puts "heres category #{category[:name]}"
-    #
-    #   puts "here are the items: #{DB.from(:catering_items).where(:category_id => category[:id]).to_a}"
-    # end
-    # @categories = {
-    #   pizza: [
-    #     {name: 'Cheese', full_price: 10, half_price: 5},
-    #     {name: 'Chicken', ingredients:'chicken and buffalo sauce', full_price: 15, half_price: 9},
-    #     {name: 'Greek', ingredients:'pesto, basil, feta', full_price: 15, half_price: 9}
-    #   ]
-    # }
-
-
     # protected!
 
     erb :menu_catering
@@ -107,11 +93,3 @@ class SliceWorksApp < Sinatra::Base
     params[:item]
   end
 end
-  # delete '/:id' do |id|
-  #   ContactStore.delete(id.to_i)
-  # end
-
-  # get '/:id/edit' do |id|
-  #   contact = ContactStore.find(id.to_i)
-  #   erb :edit, locals: {contact: contact}
-  # end
