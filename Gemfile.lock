@@ -10,8 +10,13 @@ GEM
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
     method_source (0.8.2)
+    mime-types (2.4.3)
     pg (0.17.1)
+    pony (1.11)
+      mail (>= 2.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -43,6 +48,10 @@ PLATFORMS
 
 DEPENDENCIES
   pg
+<<<<<<< HEAD
+=======
+  pony
+>>>>>>> 9670e4ef82ec62d7780e38626048558bc8fcc082
   pry
   rake
   rerun
