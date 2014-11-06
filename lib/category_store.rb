@@ -1,3 +1,5 @@
+require_relative 'rewrite'
+
 class CategoryStore
 
   def self.database
