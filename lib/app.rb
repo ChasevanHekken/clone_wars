@@ -1,17 +1,11 @@
 require_relative 'contact'
 require_relative 'contact_store'
 require_relative 'category_store'
-require_relative '../db/models'
 
 class SliceWorksApp < Sinatra::Base
 
-  configure :developement do
-    DB
-  end
-
-  configure :production do
-    DB = Sequel.connect(ENV['DATABASE_URL'])
-  end
+    db_url = ENV["RACK_ENV"] == "production" ? ENV['DATABASE_URL'] : 'postgres://localhost/sliceworks'
+    DB = Sequel.connect(db_url)
 
   def protected!
     return if authorized?
@@ -66,6 +60,8 @@ class SliceWorksApp < Sinatra::Base
   end
 
   get '/menu-catering' do
+    # settings.database
+
     @categories = CategoryStore.add_catering_items_to_categories
 
     # protected!
@@ -73,14 +69,31 @@ class SliceWorksApp < Sinatra::Base
     erb :menu_catering
   end
 
+  post '/form_input' do
+
+    category    = params[:category]
+    item_name   = params[:item_name]
+    half_price  = params[:half_price]
+    full_price  = params[:full_price]
+    description = params[:description]
+
+    CategoryStore.add_catering_item(category, item_name, half_price, full_price, description)
+
+    # category = CategoryStore.load(category)
+    # category.add_catering_item(....)
+    #
+    # CateringItemStore.insert(:category_id => self.id)
+
+    redirect '/menu-catering'
+  end
+
   get '/happy-hour' do
     erb :happy_hour
   end
 
   post '/contact-us/' do
-    p params
-    name = params[:name]
-    email = params[:email]
+    name    = params[:name]
+    email   = params[:email]
     subject = params[:subject]
     message = params[:message]
 
