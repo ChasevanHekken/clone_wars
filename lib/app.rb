@@ -79,11 +79,6 @@ class SliceWorksApp < Sinatra::Base
 
     CategoryStore.add_catering_item(category, item_name, half_price, full_price, description)
 
-    # category = CategoryStore.load(category)
-    # category.add_catering_item(....)
-    #
-    # CateringItemStore.insert(:category_id => self.id)
-
     redirect '/menu-catering'
   end
 

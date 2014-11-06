@@ -20,7 +20,7 @@ class CategoryStore
     end
   end
 
-  def self.add_catering_item(category, item_name, half_price, full_price, description, foreign_key)
+  def self.add_catering_item(category, item_name, half_price, full_price, description)
     category_id = ensure_category_exists(category)
 
     # catering_items_dataset.insert(.... :category_id => category_id)
