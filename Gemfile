@@ -4,7 +4,6 @@ gem 'sinatra', require: 'sinatra/base'
 gem 'rake'
 gem 'pg'
 gem 'sequel'
-gem 'sqlite3'
 gem 'pony', require: 'pony'
 
 

@@ -32,22 +32,21 @@
 				<article id="post-56" class="post-56 page type-page status-publish hentry">
 					<div id="form_input" >
 
-						<form action='/menu_catering' method='POST' class="catering">
-							<p>
-							<label for="item[name]">Item Name (required)</label><br />
+						<form action='/form_input' method='POST' class="catering">
+							<p>Item Category (required)<br />
+							<input type="text" name="category" value="" size="40" aria-required="true" /></p>
+
+							<p>Item Name (required)<br />
 							<input type="text" name="item_name" value="" size="40" aria-required="true" /></p>
 
-							<p>Item Category (required)<br />
-							<input type="text" name="item[category]" value="" size="40" aria-required="true" /></p>
+							<p>Half Tray Price (required)<br />
+							<input type="text" name="half_price" value="" size="40" aria-required="true" /></p>
 
-							<p>Half Tray Price(required)<br />
-							<input type="text" name="item[half_price]" value="" size="40" aria-required="true" /></p>
+							<p>Full Tray Price (required)<br />
+							<input type="text" name="full_price" value="" size="40" aria-required="true" /></p>
 
-							<p>Full Tray Price(required)<br />
-							<input type="text" name="item[full_price]" value="" size="40" aria-required="true" /></p>
-
-							<p>Item Ingredients<br />
-							<textarea name="item[ingredients]" cols="40" rows="6" ></textarea> </p>
+							<p>Item Description<br />
+							<textarea name="description" cols="40" rows="6" ></textarea> </p>
 
 							<p><input type="submit" value="Send" /></p>
 						</form>
