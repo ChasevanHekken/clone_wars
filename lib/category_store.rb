@@ -20,20 +20,24 @@ class CategoryStore
     end
   end
 
-  def self.add_catering_item(category, item_name, half_price, full_price, description)
+  def self.add_catering_item(category, title, description, half_price, full_price)
     category_id = ensure_category_exists(category)
-
-    # catering_items_dataset.insert(.... :category_id => category_id)
+    catering_items_dataset.insert(:id => (catering_items_dataset.count + 1),
+                                  :title => title,
+                                  :description => description,
+                                  :half_price => half_price,
+                                  :full_price => full_price,
+                                  :category_id => category_id)
   end
 
   def self.add_category(id, name)
     category_dataset.insert(:id => id, :name => name)
   end
 
-  def self.ensure_category_exists(category)
-    result = database['SELECT id FROM categories where name = ?', category]
+  def self.ensure_category_exists(name)
+    result = database['SELECT id FROM categories where name = ?', name]
     if result.empty?
-      add_category(category_dataset.count + 1, category)
+      add_category(category_dataset.count + 1, name)
     else
       result.first[:id]
     end

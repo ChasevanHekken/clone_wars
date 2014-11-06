@@ -77,7 +77,7 @@ class SliceWorksApp < Sinatra::Base
     full_price  = params[:full_price]
     description = params[:description]
 
-    CategoryStore.add_catering_item(category, item_name, half_price, full_price, description)
+    CategoryStore.add_catering_item(category, item_name, description, half_price, full_price)
 
     redirect '/menu-catering'
   end
