@@ -36,4 +36,5 @@ class CategoryStore
       result.first[:id]
     end
   end
+
 end
