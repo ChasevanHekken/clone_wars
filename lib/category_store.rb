@@ -14,7 +14,7 @@ class CategoryStore
     database.from(:catering_items)
   end
 
-  def self.add_catering_items_to_categories
+  def self.catering_items_and_categories
     database['SELECT * FROM categories'].all.map do |category_hash|
       category_hash.merge(:catering_items => database.from(:catering_items).where(:category_id => category_hash[:id]).to_a)
     end
@@ -35,7 +35,7 @@ class CategoryStore
   end
 
   def self.ensure_category_exists(name)
-    result = database['SELECT id FROM categories where name = ?', name]
+      result = database['SELECT id FROM categories where name = ?', name]
     if result.empty?
       add_category(category_dataset.count + 1, name)
     else
