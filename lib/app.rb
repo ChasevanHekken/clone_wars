@@ -4,19 +4,21 @@ require_relative 'category_store'
 
 class SliceWorksApp < Sinatra::Base
 
-    db_url = ENV["RACK_ENV"] == "production" ? ENV['DATABASE_URL'] : 'postgres://localhost/sliceworks'
-    DB = Sequel.connect(db_url)
+  db_url = ENV["RACK_ENV"] == "production" ? ENV['DATABASE_URL'] : 'postgres://localhost/sliceworks'
+  DB = Sequel.connect(db_url)
 
-  def protected!
-    return if authorized?
-    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-    halt 401, "Not authorized\n"
+  helpers do
+    def protected!
+      return if authorized?
+      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+      halt 401, "Not authorized\n"
+    end
   end
 
   def authorized?
     @auth ||= Rack::Auth::Basic::Request.new(request.env)
     @auth.provided? && @auth.basic? &&
-    @auth.credentials && @auth.credentials == ['admin', 'admin']
+    @auth.credentials && @auth.credentials == ['horace', 'password']
   end
 
   get '/' do
@@ -43,8 +45,9 @@ class SliceWorksApp < Sinatra::Base
     erb :locations
   end
 
-  get '/catering' do
-    erb :catering
+  get '/menu-catering' do
+    @categories = CategoryStore.catering_items_and_categories
+    erb :menu_catering
   end
 
   get '/gift-cards' do
@@ -59,26 +62,19 @@ class SliceWorksApp < Sinatra::Base
     erb :dine_in
   end
 
-  get '/menu-catering' do
-    # settings.database
-
-    @categories = CategoryStore.add_catering_items_to_categories
-
-    # protected!
-
-    erb :menu_catering
+  get '/menu-catering/admin' do
+    protected!
+    @categories = CategoryStore.catering_items_and_categories
+    erb :menu_catering_admin
   end
 
   post '/form_input' do
-
     category    = params[:category]
     item_name   = params[:item_name]
     half_price  = params[:half_price]
     full_price  = params[:full_price]
     description = params[:description]
-
     CategoryStore.add_catering_item(category, item_name, description, half_price, full_price)
-
     redirect '/menu-catering'
   end
 
@@ -91,9 +87,7 @@ class SliceWorksApp < Sinatra::Base
     email   = params[:email]
     subject = params[:subject]
     message = params[:message]
-
     Pony.mail(:to => "zrouthier@gmail.com", :from => "#{email}", :subject => "subject from #{name}", :body => "#{message}")
-
     redirect '/contact-us'
   end
 
