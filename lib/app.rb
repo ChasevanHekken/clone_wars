@@ -87,7 +87,7 @@ class SliceWorksApp < Sinatra::Base
     email   = params[:email]
     subject = params[:subject]
     message = params[:message]
-    Pony.mail(:to => "zrouthier@gmail.com", :from => "#{email}", :subject => "subject from #{name}", :body => "#{message}")
+    Pony.mail(:to => "cvh1717@gmail.com", :from => "#{email}", :subject => "subject from #{name}", :body => "#{message}")
     redirect '/contact-us'
   end
 
